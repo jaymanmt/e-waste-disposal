@@ -1,7 +1,7 @@
 /* gives map structure*/
 #map{
     width: 100%;
-    height: 500px;
+    height: 550px;
 }
 /* customise e-waste location marker */
 .e-marker{
@@ -12,5 +12,14 @@
 }
 /*allow for entire table to fit into map*/
 .mapboxgl-popup{
-    max-width: 60% !important;
+    min-width: 375px;
+    font-size: 0.7em;
+    
+}
+/* media query added to prevent overextension of table elements from json*/
+@media only screen and (min-width: 767px){
+    .mapboxgl-popup{
+        min-width: 30%;
+        font-size: 0.9em;
+    }
 }

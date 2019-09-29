@@ -21,17 +21,10 @@ However, popup html table remains a tad clunky to what is desired.
 - allow users to key in any location, letting them
 plan ahead, especially since e-waste can range in various weights
 and sizes which will result in vastly different levels of effort to 
-organise its transport. The result would be 2 locations closest related to the search
-terms and those 2 locations would be compared by the user respect to with the json file data to visually show closest
-e-waste disposal. User will have two destinations with similar names to choose from to reduce 
-chance of places with similar names. a limit of more than 2 destinations was found to 
-provide data where the destinations were not similar in search terms or were situated in the same area.
-- contacts of e-waste disposal also provided to ensure they
-do not make a wasted trip. Will recommend to call beforehand before 
-heading over. 
-1) Existing features: Geolocate appears to work well on chrome browser but faces
-issues on safari and firefox. Should not impede on UX too badly if proper if else alerts 
-are implemented. 
+organise its transport. The result would be 1 location closest related to the search
+terms and that location would be compared visually on the map by the user with respect to with the json file data
+to find closest e-waste disposal. 
+1) Existing features: Geolocate for user's current location.
 
 
 2) Features left to implement:
@@ -45,6 +38,19 @@ are implemented.
 - bootstrap
 
 # Testing:
+1. Google chrome's mobile responsive inspector:
+- Website was able to navigate around the map by dragging the cursor. 
+- width of the table elements obtained from external json file has glitches with table overextending through the popup content window.
+2. Firefox mobile responsvive inspector: 
+- Website was not able to navigate around the map by dragging the cursor.
+- width of table elements obtained from external json file seem to be free of glitches.
+3. Mapbox's Geolocate functionality appears to work well on google chrome browser but faces
+issues on safari and firefox. Should not impede on UX if proper 'if else statement' alerts 
+are implemented. 
+4. A limit of more than one search result was found to provide inaccurate data where the destinations were not similar or were not situated in the same area.
+Therefore, a limit of one search result per search was implemented to avoid confusion. 
+And added to recommend to entire closest mrt or shopping centre for most accurate search results.
+
 
 # Deployment:
 
@@ -81,6 +87,12 @@ https://data.gov.sg/dataset/resource-conservation-recycling-rate-by-waste-type
 https://data.gov.sg/dataset/online-shoppers?view_id=8367f6c6-fc05-4455-8a21-d10dd5cde7e3&resource_id=3038ccbd-a78e-4fbe-a9a4-fde9230f480a
 
 https://data.gov.sg/dataset/solid-waste-management-total-waste-incinerated-annual
+
+To dos for maps:
+customise markers, add usable mapbox features, find better background colors for popups both for
+json data and the search terms. 
+
+
 
 Create an ewaste website near you website. 
 Followed by simple correlation charts:

@@ -2,21 +2,6 @@
 let map;
 let markers_all = [];
 
-//fly-to interactivity on maps for both markers on ewaste and search values
-function flyToStoreE(currentLoc) {
-  map.flyTo({
-    center: currentLoc.geometry.coordinates,
-    zoom: 15
-  });
-}
-
-function flyToStoreS(currentLoc) {
-  map.flyTo({
-    center: currentLoc.geometry.coordinates,
-    zoom: 15
-  });
-}
-
 
 /* global mapboxgl */
 
@@ -56,7 +41,7 @@ function setupMap() {
                     .addTo(map)
                     .setPopup(epopup);
                 }
-                //UNSURE NEED TO ASK FOR HELP!
+                //UNSURE, further research needed
                 // $(".e-marker").click(function(){
                 //         map.flyTo({
                 //             center: [this.ewasteLoc.geometry.coordinates.slice(0,1), this.ewasteLoc.geometry.coordinates.slice(1,2)],
@@ -84,7 +69,7 @@ function loadLocationClick() {
                 "client_id": CLIENT_ID,
                 "client_secret": CLIENT_SECRET,
                 "v": "20190929",
-                "limit": 3,
+                "limit": 1,
                 "ll": '1.2933, 103.7831',
                 "query": searchTerms
             }
@@ -114,13 +99,6 @@ function loadLocationClick() {
 
 //click on go again button, will load destinations around entered location
 //should require foursquare
-
-//axios testing
-//axios.get console.log(response) tested and working
-// axios.get("data/e-waste-recycling-geojson.json")
-//     .then(function(response){
-//         console.log(response);
-//     })
 
 /* global $ */
 
