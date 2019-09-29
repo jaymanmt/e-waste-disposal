@@ -10,8 +10,16 @@
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.css' rel='stylesheet' />
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    
+    <!-- start dependencies for d3, crossfilter, dc, and queue -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.min.css" type="text/css" />
 
-
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.12/crossfilter.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.min.js"></script>
+    <!-- end of dependencies for d3, crossfilter, dc, and queue -->
+    
     <title>e-Waste</title>
 </head>
 
@@ -30,6 +38,9 @@
                     <li class="nav-item">
                         <a data-dest="page-three" class="nav-link" href="#">Digging deeper</a>
                     </li>
+                    <li class="nav-item">
+                        <a data-dest="page-four" class="nav-link" href="#">The Truth</a>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -44,10 +55,16 @@
             </div>
         </section>
         <section id="page-two" class="pages">
-            page2
         </section>
         <section id="page-three" class="pages">
-            page3
+            <article id="total-waste-gov"></article>
+            <article id="total-waste-manual"></article>
+            <article id="total-waste-incinerate"></article>
+            <article id="total-waste-landfill"></article>
+            <article id="total-waste-recycle"></article>
+        </section>
+        <section id="page-four" class="pages">
+            <article id="total-waste-recycle-truth"></article>
         </section>
     </main>
     <!-- jQuery library -->

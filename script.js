@@ -2,8 +2,10 @@
 let map;
 let markers_all = [];
 
-
+/* global $ */
 /* global mapboxgl */
+/* global axios*/
+/* global queue*/
 
 //map launch function that includes e-waste locations across singapore
 function setupMap() {
@@ -51,15 +53,12 @@ function setupMap() {
             })
 }
 
-
-
 //foursquare constants for apikeys
 const CLIENT_ID = 'DTMGUITHBOR02GGOE5HWBENBOPQM4BCMTJWDHVSZGZ1E3XAS';
 const CLIENT_SECRET = 'B0V0ZCE2GGK5JSQZSAB1GUPRJNC15501FEFZT23TOYYALTDS';
 
-//load locations based on search terms
-/* global axios*/
-//click on go buton, will load destinations given location
+
+//click on 'go' button, will give closest related location on mapbox
 function loadLocationClick() {
     $("#search").click(function() {
         let searchTerms = $("#destination").val();
@@ -97,10 +96,42 @@ function loadLocationClick() {
     })
 }
 
-//click on go again button, will load destinations around entered location
-//should require foursquare
+//example api call:
+//https://data.gov.sg/api/action/datastore_search?resource_id=12dd93ba-1d2e-4593-9cc0-9aac83885e9f&limit=16
 
-/* global $ */
+//charts
+
+//api urls and resource ids
+base_url_waste = 'https://data.gov.sg/api/action/datastore_search';
+resource_id_total_waste = "12dd93ba-1d2e-4593-9cc0-9aac83885e9f";
+
+function totalWasteApi(){
+    axios.get(base_url_waste, {
+        params: {
+            resource_id: resource_id_total_waste,
+            limit: 20
+        }
+    })
+    .then(function(response){
+        let total_waste_array = response.data.result.records;
+        let cf_twa = crossfilter(total_waste_array);
+        let year_dim_twa = cf_twa.dimension(dc.pluck("year"));
+        let waste_gen_twa = year_dim_twa.group().reduceSum(dc.pluck("total_waste_generated"));
+        
+        
+        dc.barChart("#page-three")
+            .width(300)
+            .height(300)
+            .dimension(year_dim_twa)
+            .group(waste_gen_twa)
+            .x(d3.scale.ordinal())
+            .xUnits(dc.units.ordinal)
+            .xAxisLabel("Year")
+            .yAxisLabel("million tonnes")
+        
+        dc.renderAll()
+    })
+}
 
 //DOM READY FUNCTION
 $(function() {

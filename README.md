@@ -64,7 +64,7 @@ And added to recommend to entire closest mrt or shopping centre for most accurat
 
 
 
-Links for later:
+useful links :
 
 https://developers.virustotal.com/reference
 
@@ -75,8 +75,6 @@ https://www.mywot.com/wiki/index.php/API
 create an interactive website which lets you choose 
 
 https://data.gov.sg/dataset/e-waste-recycling
-
-https://data.gov.sg/dataset/cash-for-trash
 
 https://data.gov.sg/dataset/solid-waste-management-total-non-domestic-waste-disposed-of-per-s-billion-gdp-annual?view_id=154b44b1-3e6e-4faa-9a74-634e4826875e&resource_id=26b692bf-034d-44f5-a6d5-9ad8387f6a6f
 
@@ -91,8 +89,23 @@ https://data.gov.sg/dataset/solid-waste-management-total-waste-incinerated-annua
 To dos for maps:
 customise markers, add usable mapbox features, find better background colors for popups both for
 json data and the search terms. 
+Add second layer for instructions? 
 
 
+Total waste disposed of:
+https://data.gov.sg/dataset/solid-waste-management-total-domestic-waste-disposed?view_id=f83aa272-974c-4c0f-b6d9-421c1eb200fe&resource_id=2c6749c6-8271-4281-97ff-fb089cccf0c4
+Total waste recycled:
+https://data.gov.sg/dataset/solid-waste-management-total-waste-recycled
+Total waste incinerated:
+https://data.gov.sg/dataset/solid-waste-management-total-waste-incinerated-annual?view_id=882ae208-bd25-4b99-8cc9-a3b7b24d063a&resource_id=e4c8461f-e7de-4fc3-ad25-cf068ae09509
+Total waste landfilled:
+https://data.gov.sg/dataset/solid-waste-management-total-waste-landfilled-annual
+
+--> Digging deeper --> recycling by type. What appears on the surface is not what it seems.
+https://data.gov.sg/dataset/resource-conservation-recycling-rate-by-waste-type
+
+--> Recyling by type over 2017 and 2018 remain largely unchanged:
+https://www-nea-gov-sg-admin.cwp.sg/docs/default-source/our-services/waste-management/waste-stats---2003---2017e44f4011546a42c2b736db5193758791.pdf
 
 Create an ewaste website near you website. 
 Followed by simple correlation charts:
