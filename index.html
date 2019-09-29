@@ -18,39 +18,45 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a data-dest="page-1" class="navbar-brand nav-link" href="#">Dispose your e-waste</a>
+            <a data-dest="page-one" class="navbar-brand nav-link" href="#">Dispose your e-waste</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a data-dest="page-2" class="nav-link" href="#">Maps <span class="sr-only">(current)</span></a>
+                        <a data-dest="page-two" class="nav-link" href="#">Maps <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a data-dest="page-3" class="nav-link" href="#">e-waste facts</a>
+                        <a data-dest="page-three" class="nav-link" href="#">e-waste facts</a>
                     </li>
                     <li class="nav-item">
-                        <a data-dest="page-4" class="nav-link" href="#">Digging Deeper</a>
+                        <a data-dest="page-four" class="nav-link" href="#">Digging Deeper</a>
                     </li>
                 </ul>
             </div>
         </nav>
     </header>
     <main class="container-fluid">
-        <section id="page-one" class = "row">
+        <section id="page-one" class = "row pages">
             <nav class = "col-2">
-                search bar
+                <input type="radio" name="search-type">current location</input>
+                <input type="radio" name="search-type">enter a location</input>
+                <button id="search">go</button>
+                <input type="text" id="destination" placeholder="enter location"/>
+                <button id="search-two">go again</button>
             </nav>
-            <div class = "col">
-                map
+            <div id= "map" class = "col">
             </div>
         </section>
-        <section id="page-two">
+        <section id="page-two" class="pages">
             page2
         </section>
-        <section id="page-three">
+        <section id="page-three" class="pages">
             page3
+        </section>
+        <section id="page-four" class="pages">
+            page4
         </section>
     </main>
     <!-- jQuery library -->

@@ -1,9 +1,21 @@
 # Project Name: Find your nearest e-waste drop-off
 
-# UX:
+# UX: 
+- quickly access data on where to responsibly dispose of e-waste,
+this data will include maps on the nearest locations within 5kilometres
+for convenience.
+
 
 # Features:
 
+- allow users to select nearest locations to their current locations,
+or, select nearest locations to a future location, letting them
+plan ahead especially since e-waste can range in various weights
+and sizes which will result in vastly different levels of effort to 
+organise its transport. 
+- contacts of e-waste disposal also provided to ensure they
+do not make a wasted trip. Will recommend to call beforehand before 
+heading over. 
 1) Existing features:
 
 
@@ -13,6 +25,9 @@
 # Technologies used:
 
 - jQuery
+- mapboxgl
+- axios
+- bootstrap
 
 # Testing:
 
@@ -20,7 +35,7 @@
 
 # Credits: 
 
-- content:
+- content: data.gov.sg
 - media: 
 - acknowledgements:
 
