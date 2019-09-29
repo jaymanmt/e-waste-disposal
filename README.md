@@ -1,9 +1,18 @@
 # Project Name: Find your nearest e-waste drop-off
-
-# UX: 
 - quickly access data on where to responsibly dispose of e-waste,
 this data will include maps on the nearest locations within 5kilometres
 for convenience.
+
+# UX:
+- all locations for e-waste disposal loaded right away
+- added search bar for planning one's vicinity
+- added geolocation for centering on one's current location
+- zoom adjusted for both search methods such that user should still be able to see their closest ewaste disposal
+- faced issues with data.gov.sg geojson file where json decription of the e-waste locations were
+added with html element tags and has a lot of uneccessary information for our daily users.
+Went ahead with trimming down the table using substrings to reduce clutter on map.
+However, popup html table remains a tad clunky to what is desired. 
+
 
 
 # Features:
@@ -12,9 +21,11 @@ for convenience.
 - allow users to key in any location, letting them
 plan ahead, especially since e-waste can range in various weights
 and sizes which will result in vastly different levels of effort to 
-organise its transport. The result would be 3 locations closest related to the search
-terms and those 3 locations would be compared with the json file to show closest
-e-waste disposal. 
+organise its transport. The result would be 2 locations closest related to the search
+terms and those 2 locations would be compared by the user respect to with the json file data to visually show closest
+e-waste disposal. User will have two destinations with similar names to choose from to reduce 
+chance of places with similar names. a limit of more than 2 destinations was found to 
+provide data where the destinations were not similar in search terms or were situated in the same area.
 - contacts of e-waste disposal also provided to ensure they
 do not make a wasted trip. Will recommend to call beforehand before 
 heading over. 
@@ -40,6 +51,7 @@ are implemented.
 # Credits: 
 
 - content: data.gov.sg
+- e-waste icon from https://icons8.com/icons/set/waste
 - media: 
 - acknowledgements:
 

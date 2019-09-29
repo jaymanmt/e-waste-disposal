@@ -2,9 +2,25 @@
 let map;
 let markers_all = [];
 
+//fly-to interactivity on maps for both markers on ewaste and search values
+function flyToStoreE(currentLoc) {
+  map.flyTo({
+    center: currentLoc.geometry.coordinates,
+    zoom: 15
+  });
+}
+
+function flyToStoreS(currentLoc) {
+  map.flyTo({
+    center: currentLoc.geometry.coordinates,
+    zoom: 15
+  });
+}
+
+
 /* global mapboxgl */
 
-//basic map launch
+//map launch function that includes e-waste locations across singapore
 function setupMap() {
     mapboxgl.accessToken = "pk.eyJ1IjoiamF5bWFubXQiLCJhIjoiY2sweXFzaHBwMDI5YTNubGc1c255aHp1cCJ9.hdMY8-5YXAPS3wasvO1kbg";
 
@@ -27,14 +43,30 @@ function setupMap() {
                 let ewasteLoc = response.data.features
                 for (let each of ewasteLoc){
                     each_loc = each.geometry.coordinates;
+                    let epopup = new mapboxgl.Popup({
+                    offset: 25
+                    })
+                    let excessInfoStr = each.properties.Description;
+                    let cutStr = excessInfoStr.substring(0,excessInfoStr.length-281);
+                    epopup.setHTML(`${cutStr}`);
                     let el = document.createElement("div");
                     el.className = "e-marker";
                     eMark = new mapboxgl.Marker(el)
                     .setLngLat([each_loc.slice(0,1), each_loc.slice(1,2)])
                     .addTo(map)
+                    .setPopup(epopup);
                 }
+                //UNSURE NEED TO ASK FOR HELP!
+                // $(".e-marker").click(function(){
+                //         map.flyTo({
+                //             center: [this.ewasteLoc.geometry.coordinates.slice(0,1), this.ewasteLoc.geometry.coordinates.slice(1,2)],
+                //             zoom: 12
+                //         })
+                //     })
             })
 }
+
+
 
 //foursquare constants for apikeys
 const CLIENT_ID = 'DTMGUITHBOR02GGOE5HWBENBOPQM4BCMTJWDHVSZGZ1E3XAS';

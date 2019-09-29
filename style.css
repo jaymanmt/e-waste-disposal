@@ -1,10 +1,16 @@
+/* gives map structure*/
 #map{
     width: 100%;
     height: 500px;
 }
+/* customise e-waste location marker */
 .e-marker{
     background-image: url(images/e-waste-marker.png);
     background-size: cover;
     width: 20px;
     height: 20px;
+}
+/*allow for entire table to fit into map*/
+.mapboxgl-popup{
+    max-width: 60% !important;
 }
