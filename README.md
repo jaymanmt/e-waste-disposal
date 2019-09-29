@@ -8,15 +8,19 @@ for convenience.
 
 # Features:
 
-- allow users to select nearest locations to their current locations,
-or, select nearest locations to a future location, letting them
-plan ahead especially since e-waste can range in various weights
+- allow users to select their current location,
+- allow users to key in any location, letting them
+plan ahead, especially since e-waste can range in various weights
 and sizes which will result in vastly different levels of effort to 
-organise its transport. 
+organise its transport. The result would be 3 locations closest related to the search
+terms and those 3 locations would be compared with the json file to show closest
+e-waste disposal. 
 - contacts of e-waste disposal also provided to ensure they
 do not make a wasted trip. Will recommend to call beforehand before 
 heading over. 
-1) Existing features:
+1) Existing features: Geolocate appears to work well on chrome browser but faces
+issues on safari and firefox. Should not impede on UX too badly if proper if else alerts 
+are implemented. 
 
 
 2) Features left to implement:
