@@ -24,7 +24,15 @@ function setupMap() {
     
     axios.get("data/e-waste-recycling-geojson.json")
             .then(function(response) {
-                console.log(response);
+                let ewasteLoc = response.data.features
+                for (let each of ewasteLoc){
+                    each_loc = each.geometry.coordinates;
+                    let el = document.createElement("div");
+                    el.className = "e-marker";
+                    eMark = new mapboxgl.Marker(el)
+                    .setLngLat([each_loc.slice(0,1), each_loc.slice(1,2)])
+                    .addTo(map)
+                }
             })
 }
 
