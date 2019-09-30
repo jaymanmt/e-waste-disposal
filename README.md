@@ -16,19 +16,19 @@ However, popup html table remains a tad clunky to what is desired.
 
 
 # Features:
-
-- allow users to select their current location,
-- allow users to key in any location, letting them
-plan ahead, especially since e-waste can range in various weights
+1) Map features
+- allow users to select their current location using Geolocate feature from mapboxgl
+- allow users to key in any location, letting them plan ahead, especially since e-waste can range in various weights
 and sizes which will result in vastly different levels of effort to 
-organise its transport. The result would be 1 location closest related to the search
+organise its transport. The result is set to 1 location closest related to the search
 terms and that location would be compared visually on the map by the user with respect to with the json file data
 to find closest e-waste disposal. 
-1) Existing features: Geolocate for user's current location.
+ 
 
 
-2) Features left to implement:
-
+3) Graph features:
+- Stacked chart that displays total waste output of singapore over 15years, also displaying the waste handling distribution within each bar.
+- A breakdown of trends using the data in the stacked chart to visualise each individual waste handling by Singapore over the same timeline. 
 
 # Technologies used:
 
@@ -36,6 +36,7 @@ to find closest e-waste disposal.
 - mapboxgl
 - axios
 - bootstrap
+- d3, dc, crossfilter
 
 # Testing:
 1. Google chrome's mobile responsive inspector:
@@ -91,6 +92,9 @@ customise markers, display popup onclick instead of just the marker, add usable 
 json data and the search terms. 
 Add second layer for instructions? 
 
+To dos for charts:
+add mobile responsiveness to charts, after adding that --> add scalable legends + maybe animations choose appropriate background color and maybe animations to 
+improve UX/UI
 
 Total waste disposed of:
 https://data.gov.sg/dataset/solid-waste-management-total-domestic-waste-disposed?view_id=f83aa272-974c-4c0f-b6d9-421c1eb200fe&resource_id=2c6749c6-8271-4281-97ff-fb089cccf0c4

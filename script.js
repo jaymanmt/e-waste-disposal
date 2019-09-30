@@ -109,6 +109,7 @@ let resource_id_total_waste = "12dd93ba-1d2e-4593-9cc0-9aac83885e9f";
 let resource_id_recycled = "00fe011e-e4fb-45c5-b23d-a62143048eba";
 let resource_id_incinerate = "e4c8461f-e7de-4fc3-ad25-cf068ae09509";
 let resource_id_landfill = "81292d12-57a5-4e76-a65b-effacc6806b7";
+let resource_id_truth = "4d83d0be-55ba-46de-8430-2ff708fede5c";
 
 //chart axios functions to be called in axios callback.
 function totalRecycleApi(){
@@ -171,8 +172,8 @@ function totalWaste(){
             
             let stackChart = dc.barChart("#total-waste-chart");
             stackChart
-                .width(500)
-                .height(200)
+                .width(700)
+                .height(400)
                 .dimension(year_dim)
                 .group(waste_landfilled,"Landfilled")
                 .stack(waste_incinerated, "Incinerated")
@@ -180,86 +181,74 @@ function totalWaste(){
                 .transitionDuration(1500)
                 .x(d3.scale.ordinal())
                 .xUnits(dc.units.ordinal)
-                .xAxisLabel("Year")
+                .xAxisLabel("year")
                 .yAxisLabel("million tonnes")
-                .legend(dc.legend().x(420).y(0).itemHeight(15).gap(5));
-            
-            stackChart.margins().left = 50;
-            stackChart.margins().right = 100;
-            stackChart.ordinalColors(['#b48c5b','#e4572e','#a8c686']);
+                .ordinalColors(['#44af69','#fcab10','#2274a5'])
+                // .legend(dc.legend().x(460).y(0).itemHeight(15).gap(5))
+                // .margins().right = 150;
             
             dc.barChart("#total-waste-incinerated")
-                .width(400)
+                .width(500)
                 .height(150)
                 .dimension(year_dim)
                 .group(waste_incinerated)
                 .x(d3.scale.ordinal())
                 .xUnits(dc.units.ordinal)
-                .xAxisLabel("Year")
-                .yAxisLabel("Incinerated(per million tonnes)")
-                .ordinalColors(["#e4572e"]);
+                .xAxisLabel("year")
+                .yAxisLabel("million tonnes")
+                .ordinalColors(["#fcab10"]);
             
             dc.barChart("#total-waste-recycled")
-                .width(400)
+                .width(500)
                 .height(150)
                 .dimension(year_dim)
                 .group(waste_recycled)
                 .x(d3.scale.ordinal())
                 .xUnits(dc.units.ordinal)
-                .xAxisLabel("Year")
-                .yAxisLabel("Recycled(per million tonnes)")
-                .ordinalColors(["#a8c686"]);
+                .xAxisLabel("year")
+                .yAxisLabel("million tonnes")
+                .ordinalColors(["#2274a5"]);
                 
             dc.barChart("#total-waste-landfilled")
-                .width(400)
+                .width(500)
                 .height(150)
                 .dimension(year_dim)
                 .group(waste_incinerated)
                 .x(d3.scale.ordinal())
                 .xUnits(dc.units.ordinal)
-                .xAxisLabel("Year")
-                .yAxisLabel("Landfilled(per million tonnes)")
-                .ordinalColors(["#b48c5b"]);
-                
-                
+                .xAxisLabel("year")
+                .yAxisLabel("million tonnes")
+                .ordinalColors(["#44af69"]);
                 
             dc.renderAll();
         }))
 }
-
-
-
-
-
-    // .then(function(response){
-    //     let start_data = response.data.result.records;
-    //     for (let objs of start_data){
-    //         total_waste_generated_array = 
-    //     }
-        
-        // let total_waste_array = response.data.result.records;
-        // let cf_twa = crossfilter(total_waste_array);
-        // let year_dim_twa = cf_twa.dimension(dc.pluck("year"));
-        // let waste_gen_twa = year_dim_twa.group().reduceSum(dc.pluck("total_waste_generated"));
-        
-        
-        // dc.barChart("#page-three")
-        //     .width(300)
-        //     .height(300)
-        //     .dimension(year_dim_twa)
-        //     .group(waste_gen_twa)
-        //     .x(d3.scale.ordinal())
-        //     .xUnits(dc.units.ordinal)
-        //     .xAxisLabel("Year")
-        //     .yAxisLabel("million tonnes")
-        
-        // dc.renderAll()
-    // })
-
-
-// draw charts
-
-
+//chart for recycle distribution
+function recycleDistributionApi(){
+    axios.get(base_url_waste, {
+        params: {
+            resource_id: resource_id_truth,
+            limit: 225
+        }
+    })
+        .then(function(response){
+            let recycle_dist = response.data.result.records;
+            recycle_dist.splice(0,210);
+            let cf_recycle_dist_data = crossfilter(recycle_dist);
+            let material_dim = cf_recycle_dist_data.dimension(dc.pluck("waste_type"));
+            let recycling_rate_group = material_dim.group().reduceSum(dc.pluck("recycling_rate"));
+            
+            dc.rowChart("#total-waste-recycle-truth")
+                .width(700)
+                .height(500)
+                .x(d3.scale.linear())
+                .elasticX(true)
+                .dimension(material_dim)
+                .group(recycling_rate_group)
+                .ordinalColors(["#ffc145"])
+            dc.renderAll();
+            })
+}
 
 
 //DOM READY FUNCTION
@@ -268,6 +257,10 @@ $(function() {
     setupMap();
     //setup current location click
     loadLocationClick();
+    //load bar charts
+    totalWaste();
+    //load row chart
+    recycleDistributionApi()
     //set up Single Page Application
     $(".pages").hide();
     $("#page-one").show();
