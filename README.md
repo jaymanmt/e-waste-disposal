@@ -87,7 +87,7 @@ https://data.gov.sg/dataset/online-shoppers?view_id=8367f6c6-fc05-4455-8a21-d10d
 https://data.gov.sg/dataset/solid-waste-management-total-waste-incinerated-annual
 
 To dos for maps:
-customise markers, add usable mapbox features, find better background colors for popups both for
+customise markers, display popup onclick instead of just the marker, add usable mapbox features, find better background colors for popups both for
 json data and the search terms. 
 Add second layer for instructions? 
 

@@ -5,7 +5,7 @@ let markers_all = [];
 /* global $ */
 /* global mapboxgl */
 /* global axios*/
-/* global queue*/
+/* global dc */
 
 //map launch function that includes e-waste locations across singapore
 function setupMap() {
@@ -27,9 +27,9 @@ function setupMap() {
     
     axios.get("data/e-waste-recycling-geojson.json")
             .then(function(response) {
-                let ewasteLoc = response.data.features
+                let ewasteLoc = response.data.features;
                 for (let each of ewasteLoc){
-                    each_loc = each.geometry.coordinates;
+                    let each_loc = each.geometry.coordinates;
                     let epopup = new mapboxgl.Popup({
                     offset: 25
                     })
@@ -38,25 +38,25 @@ function setupMap() {
                     epopup.setHTML(`${cutStr}`);
                     let el = document.createElement("div");
                     el.className = "e-marker";
-                    eMark = new mapboxgl.Marker(el)
-                    .setLngLat([each_loc.slice(0,1), each_loc.slice(1,2)])
+                    let eMark = new mapboxgl.Marker(el)
+                    .setLngLat([each_loc[0], each_loc[1]])
                     .addTo(map)
                     .setPopup(epopup);
+                    
+                     $(el).click(function(){
+                        map.flyTo({
+                            center: [each_loc[0], each_loc[1]],
+                            speed: 0.5
+                        })
+                    })
                 }
-                //UNSURE, further research needed
-                // $(".e-marker").click(function(){
-                //         map.flyTo({
-                //             center: [this.ewasteLoc.geometry.coordinates.slice(0,1), this.ewasteLoc.geometry.coordinates.slice(1,2)],
-                //             zoom: 12
-                //         })
-                //     })
             })
 }
 
 //foursquare constants for apikeys
 const CLIENT_ID = 'DTMGUITHBOR02GGOE5HWBENBOPQM4BCMTJWDHVSZGZ1E3XAS';
 const CLIENT_SECRET = 'B0V0ZCE2GGK5JSQZSAB1GUPRJNC15501FEFZT23TOYYALTDS';
-
+const master_data = [];
 
 //click on 'go' button, will give closest related location on mapbox
 function loadLocationClick() {
@@ -90,48 +90,177 @@ function loadLocationClick() {
                     .addTo(map)
                     .setPopup(popup);
                     markers_all.push(m);
+                map.flyTo({
+                            center: [each_place.venue.location.lng, each_place.venue.location.lat],
+                            zoom: 13,
+                            speed: 0.5,
+                            curve: 1
+                        })
             }
         })
         
     })
 }
-
-//example api call:
-//https://data.gov.sg/api/action/datastore_search?resource_id=12dd93ba-1d2e-4593-9cc0-9aac83885e9f&limit=16
-
 //charts
 
-//api urls and resource ids
-base_url_waste = 'https://data.gov.sg/api/action/datastore_search';
-resource_id_total_waste = "12dd93ba-1d2e-4593-9cc0-9aac83885e9f";
+//chart api resource ids
+let base_url_waste = 'https://data.gov.sg/api/action/datastore_search';
+let resource_id_total_waste = "12dd93ba-1d2e-4593-9cc0-9aac83885e9f";
+let resource_id_recycled = "00fe011e-e4fb-45c5-b23d-a62143048eba";
+let resource_id_incinerate = "e4c8461f-e7de-4fc3-ad25-cf068ae09509";
+let resource_id_landfill = "81292d12-57a5-4e76-a65b-effacc6806b7";
 
-function totalWasteApi(){
-    axios.get(base_url_waste, {
+//chart axios functions to be called in axios callback.
+function totalRecycleApi(){
+    return axios.get(base_url_waste, {
         params: {
-            resource_id: resource_id_total_waste,
+            resource_id: resource_id_recycled,
             limit: 20
         }
     })
-    .then(function(response){
-        let total_waste_array = response.data.result.records;
-        let cf_twa = crossfilter(total_waste_array);
-        let year_dim_twa = cf_twa.dimension(dc.pluck("year"));
-        let waste_gen_twa = year_dim_twa.group().reduceSum(dc.pluck("total_waste_generated"));
-        
-        
-        dc.barChart("#page-three")
-            .width(300)
-            .height(300)
-            .dimension(year_dim_twa)
-            .group(waste_gen_twa)
-            .x(d3.scale.ordinal())
-            .xUnits(dc.units.ordinal)
-            .xAxisLabel("Year")
-            .yAxisLabel("million tonnes")
-        
-        dc.renderAll()
+}
+
+function totalIncinerateApi(){
+    return axios.get(base_url_waste, {
+        params: {
+            resource_id: resource_id_incinerate,
+            limit: 20
+        }
     })
 }
+
+function totalLandfillApi(){
+    return axios.get(base_url_waste, {
+        params: {
+            resource_id: resource_id_landfill,
+            limit: 20
+        }
+    })
+}
+
+//chart axios callback - 3 x functions for responses from 3 APIs
+function totalWaste(){
+    axios.all([totalRecycleApi(), totalIncinerateApi(), totalLandfillApi()])
+        .then(axios.spread(function(recy,inci,land){
+            let recy_data = recy.data.result.records;
+            let inci_data = inci.data.result.records;
+            let land_data = land.data.result.records;
+            for (let r of recy_data){
+                master_data.push(r);
+            }
+            let count = 0;
+            let count2 = 0
+            for (let i of inci_data){
+                if (count < master_data.length){
+                    master_data[count].total_waste_incinerated = i.total_waste_incinerated;
+                    count++;
+                }
+            }
+            for (let l of land_data){
+                if (count2 < master_data.length){
+                    master_data[count2].total_waste_landfilled= l.total_waste_landfilled;
+                    count2++;
+                }
+            }
+            let cf_waste_data = crossfilter(master_data);
+            
+            let year_dim = cf_waste_data.dimension(dc.pluck("year"));
+            let waste_recycled = year_dim.group().reduceSum(dc.pluck("total_waste_recycled"));
+            let waste_incinerated = year_dim.group().reduceSum(dc.pluck("total_waste_incinerated"));
+            let waste_landfilled = year_dim.group().reduceSum(dc.pluck("total_waste_landfilled"));
+            
+            let stackChart = dc.barChart("#total-waste-chart");
+            stackChart
+                .width(500)
+                .height(200)
+                .dimension(year_dim)
+                .group(waste_landfilled,"Landfilled")
+                .stack(waste_incinerated, "Incinerated")
+                .stack(waste_recycled, "Recycled")
+                .transitionDuration(1500)
+                .x(d3.scale.ordinal())
+                .xUnits(dc.units.ordinal)
+                .xAxisLabel("Year")
+                .yAxisLabel("million tonnes")
+                .legend(dc.legend().x(420).y(0).itemHeight(15).gap(5));
+            
+            stackChart.margins().left = 50;
+            stackChart.margins().right = 100;
+            stackChart.ordinalColors(['#b48c5b','#e4572e','#a8c686']);
+            
+            dc.barChart("#total-waste-incinerated")
+                .width(400)
+                .height(150)
+                .dimension(year_dim)
+                .group(waste_incinerated)
+                .x(d3.scale.ordinal())
+                .xUnits(dc.units.ordinal)
+                .xAxisLabel("Year")
+                .yAxisLabel("Incinerated(per million tonnes)")
+                .ordinalColors(["#e4572e"]);
+            
+            dc.barChart("#total-waste-recycled")
+                .width(400)
+                .height(150)
+                .dimension(year_dim)
+                .group(waste_recycled)
+                .x(d3.scale.ordinal())
+                .xUnits(dc.units.ordinal)
+                .xAxisLabel("Year")
+                .yAxisLabel("Recycled(per million tonnes)")
+                .ordinalColors(["#a8c686"]);
+                
+            dc.barChart("#total-waste-landfilled")
+                .width(400)
+                .height(150)
+                .dimension(year_dim)
+                .group(waste_incinerated)
+                .x(d3.scale.ordinal())
+                .xUnits(dc.units.ordinal)
+                .xAxisLabel("Year")
+                .yAxisLabel("Landfilled(per million tonnes)")
+                .ordinalColors(["#b48c5b"]);
+                
+                
+                
+            dc.renderAll();
+        }))
+}
+
+
+
+
+
+    // .then(function(response){
+    //     let start_data = response.data.result.records;
+    //     for (let objs of start_data){
+    //         total_waste_generated_array = 
+    //     }
+        
+        // let total_waste_array = response.data.result.records;
+        // let cf_twa = crossfilter(total_waste_array);
+        // let year_dim_twa = cf_twa.dimension(dc.pluck("year"));
+        // let waste_gen_twa = year_dim_twa.group().reduceSum(dc.pluck("total_waste_generated"));
+        
+        
+        // dc.barChart("#page-three")
+        //     .width(300)
+        //     .height(300)
+        //     .dimension(year_dim_twa)
+        //     .group(waste_gen_twa)
+        //     .x(d3.scale.ordinal())
+        //     .xUnits(dc.units.ordinal)
+        //     .xAxisLabel("Year")
+        //     .yAxisLabel("million tonnes")
+        
+        // dc.renderAll()
+    // })
+
+
+// draw charts
+
+
+
 
 //DOM READY FUNCTION
 $(function() {
