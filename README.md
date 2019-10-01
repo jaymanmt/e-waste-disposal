@@ -53,6 +53,7 @@ are implemented.
 4. A limit of more than one search result was found to provide inaccurate data where the destinations were not similar or were not situated in the same area.
 Therefore, a limit of one search result per search was implemented to avoid confusion. 
 And added to recommend to entire closest mrt or shopping centre for most accurate search results.
+5. Mapboxgl loads correctly but when other 'pages' as part of the single page application have their windows resized, mapboxgl will be affected. A page refresh or manual window size adjust of maps itself fixes the issue. The occurence of a user resizing windows during the use of other pages followed by going back to the maps seem unlikely, and thus I chose excessive amounts of time fixing this bug. 
 
 
 # Deployment:
@@ -60,7 +61,7 @@ And added to recommend to entire closest mrt or shopping centre for most accurat
 # Credits: 
 
 - chart content: data.gov.sg
-- e-waste icon from https://icons8.com/icons/set/waste
+- all map marker icons from https://icons8.com/icons/set/waste
 - media: 
 - acknowledgements: 
 
@@ -99,12 +100,11 @@ https://data.gov.sg/dataset/online-shoppers?view_id=8367f6c6-fc05-4455-8a21-d10d
 https://data.gov.sg/dataset/solid-waste-management-total-waste-incinerated-annual
 
 To dos for maps:
-customise markers, display popup onclick instead of just the marker, add usable mapbox features, find better background colors for popups both for
-json data and the search terms. 
+add usable mapbox features
 Add second layer for instructions? 
 
 To dos for charts:
-add mobile responsiveness to charts, after adding that --> add scalable legends + maybe animations choose appropriate background color and maybe animations to 
+maybe animations choose appropriate background color and maybe animations to 
 improve UX/UI
 
 Total waste disposed of:

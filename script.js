@@ -1,6 +1,7 @@
 /* global variables */
 let map;
 let markers_all = [];
+let buttonCounter = 0;
 
 /* global $ */
 /* global mapboxgl */
@@ -31,7 +32,7 @@ function setupMap() {
                 for (let each of ewasteLoc){
                     let each_loc = each.geometry.coordinates;
                     let epopup = new mapboxgl.Popup({
-                    offset: 25
+                    offset: 20
                     })
                     let excessInfoStr = each.properties.Description;
                     let cutStr = excessInfoStr.substring(0,excessInfoStr.length-281);
@@ -58,9 +59,14 @@ const CLIENT_ID = 'DTMGUITHBOR02GGOE5HWBENBOPQM4BCMTJWDHVSZGZ1E3XAS';
 const CLIENT_SECRET = 'B0V0ZCE2GGK5JSQZSAB1GUPRJNC15501FEFZT23TOYYALTDS';
 const master_data = [];
 
+function buttonAnimate(){
+    return $("#search").html(`<div id="#search" style="height: 26px; padding: 0; animation-name:button-animate; animation-duration:0.5s">go</div>`);
+}
+
 //click on 'go' button, will give closest related location on mapbox
 function loadLocationClick() {
     $("#search").click(function() {
+        buttonAnimate();
         let searchTerms = $("#destination").val();
         let base_url = "https://api.foursquare.com/v2";
         axios.get(base_url + '/venues/explore', {
@@ -82,10 +88,12 @@ function loadLocationClick() {
                 let name = each_place.venue.name;
                 let address = each_place.venue.location.address;
                 let popup = new mapboxgl.Popup({
-                    offset: 25
+                    offset: 20
                 })
-                popup.setHTML(`<h3>${name}</h3><p>${address}</p>`)
-                let m = new mapboxgl.Marker()
+                popup.setHTML(`<div style="text-align:center; border-radius:5px"><h5>${name}</h5><p>Address:${address}</p><div>`)
+                let el2 = document.createElement("div");
+                    el2.className = "e-marker2";
+                let m = new mapboxgl.Marker(el2)
                     .setLngLat([each_place.venue.location.lng, each_place.venue.location.lat])
                     .addTo(map)
                     .setPopup(popup);
@@ -274,5 +282,4 @@ $(function() {
         $(".pages").hide();
         $('#' + page).show();
     })
-
 })
