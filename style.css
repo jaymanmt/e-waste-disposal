@@ -1,3 +1,22 @@
+/*nav bar customisatio*/
+
+.navbar{
+    background-color: #156cea;
+}
+.navbar-light{
+    color: white !important;
+}
+.nav-link{
+    color: white !important;
+    padding: 0 !important;
+}
+.nav-item{
+    margin: 4px;
+}
+.navbar-toggler-icon{
+    background-image: url(images/icon-pulldown.png) !important;
+}
+
 /* gives map structure*/
 #map{
     width: 100%;
@@ -23,6 +42,14 @@
         font-size: 0.9em;
     }
 }
+/* page two customisation for e-waste info. */
+#hero-image{
+    height: 500px;
+    background-image: url(images/ewaste-pic.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+}
+
 
 #page-three{
     display: flex;

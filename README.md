@@ -29,7 +29,8 @@ to find closest e-waste disposal.
 3) Graph features:
 - Stacked chart that displays total waste output of singapore over 15years, also displaying the waste handling distribution within each bar.
 - A breakdown of trends using the data in the stacked chart to visualise each individual waste handling by Singapore over the same timeline. 
-
+- A breakdown of singapore's recycling rate distribution to demonstrate how everyday operations of both businesses and 
+consumers remain at a very unsustainable pace.
 # Technologies used:
 
 - jQuery
@@ -60,7 +61,11 @@ And added to recommend to entire closest mrt or shopping centre for most accurat
 - content: data.gov.sg
 - e-waste icon from https://icons8.com/icons/set/waste
 - media: 
-- acknowledgements:
+- acknowledgements: 
+ewaste photo on page-2: Photo by Jonathan Borba on Unsplash
+ewaste content on page-2: National Environment Agency
+https://www.nea.gov.sg/our-services/waste-management/3r-programmes-and-resources/e-waste-management
+
 
 
 

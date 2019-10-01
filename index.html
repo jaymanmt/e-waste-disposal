@@ -10,7 +10,7 @@
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.css' rel='stylesheet' />
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    
+
     <!-- start dependencies for d3, crossfilter, dc, and queue -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.min.css" type="text/css" />
 
@@ -19,13 +19,13 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.min.js"></script>
     <!-- end of dependencies for d3, crossfilter, dc, and queue -->
-    
+
     <title>e-Waste</title>
 </head>
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light">
             <a data-dest="page-one" class="navbar-brand nav-link" href="#">Dispose your e-waste</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -33,7 +33,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a data-dest="page-two" class="nav-link" href="#">e-waste facts <span class="sr-only">(current)</span></a>
+                        <a data-dest="page-two" class="nav-link" href="#">e-waste?? <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
                         <a data-dest="page-three" class="nav-link" href="#">Digging deeper</a>
@@ -46,15 +46,39 @@
         </nav>
     </header>
     <main>
-        <section id="page-one" class = "pages">
+        <section id="page-one" class="pages">
             <nav id="search-tool">
-                <input type="text" id="destination" placeholder="enter malls or mrts only"/>
+                <input type="text" id="destination" placeholder="enter malls or mrts only" />
                 <button id="search">go</button>
             </nav>
-            <div id= "map">
+            <div id="map">
             </div>
         </section>
-        <section id="page-two" class="pages">
+        <section id="page-two" class="pages container-fluid">
+            <aside id="hero-image" class="row"></aside>
+            <article>
+                <h2>What is e-waste?</h2>
+                <p>
+                    E-waste is electrical and electronic equipment of any kind that has been discarded. It includes practically anything powered by an electrical source (e.g., from a power socket or a battery). Common types of e-waste include the following: Infocomm technology
+                    (ICT) equipment, such as desktop, laptop and tablet computers, mobile phones, computer and mobile phone batteries, printers, peripherals and accessories such as keyboards, modems, monitors, computer mice, docking stations, hard disk
+                    drives, battery chargers, etc. Home appliances, such as TVs, refrigerators, air conditioners, washing machines, rice cookers, microwave and toaster ovens, electric kettles, food processors and blenders, electric fans, DVD/video/music
+                    players, radios, hi-fis, vacuum cleaners, etc. Other types of e-waste include lamps and lighting devices, batteries, electronic toys, sports and leisure equipment, etc. E-waste is mostly made up of metal and plastic components, but
+                    also contains small amounts of heavy metals and substances of concern (e.g., in printed circuit boards). The wide variety of e-waste makes it hard to generalise the material content – for example, fridges and air conditioners in particular
+                    contain refrigerants to enable cooling to take place, but these refrigerants may also contribute to ozone layer depletion or climate change; the material composition of a mobile phone is very different from that of an electric kettle.
+                </p>
+                <h2>Why should I recycle my e-waste?</h2>
+                <p>
+                    Recycling e-waste protects human and environmental health. Improper disposal of e-waste leads to environmental pollution and this may in turn harm human health. The best way to treat e-waste is to recycle it properly. E-waste comprises many different
+                    components and requires specialised equipment to dismantle, shred, process and extract the constituent materials that can then be turned into new products. This has to be performed within a controlled system to prevent pollution and
+                    ensure workplace safety and health. Recycling e-waste helps to conserve our earth’s precious natural resources. Recycled material is used to make new products. This reduces the need to mine limited raw materials from the earth. Reducing
+                    the need for mining also lowers pollution, as the process of mining has an impact on our environment.
+                </p>
+            </article>
+            <aside>
+                <p>
+                   These informative blocks are credited to NEA.GOV.SG. 
+                </p>
+            </aside>
         </section>
         <section id="page-three" class="pages">
             <div>
@@ -74,15 +98,16 @@
                 <h4>Waste Landfilled</h4>
                 <article id="total-waste-landfilled"></article>
             </div>
-            
+
         </section>
         <section id="page-four" class="pages container-fluid">
             <h2>Is our recycling rates really so great?</h2>
             <main class="row">
-                <article id="total-waste-recycle-truth" class = "col-8"></article>
-                <article class = "col">
+                <article id="total-waste-recycle-truth" class="col-8"></article>
+                <article class="col">
                     <h4>Unfortunately not...</h4>
-                    <p>While our recycling rates appear to be doing well, it is heavily skewed by construction and industrial materials. Common everyday waste materials from both business and consumers such as plastics, glass, food, paper, cardboard continue to face very poor recycling rates.</p>
+                    <p>While our recycling rates appear to be doing well, it is heavily skewed by construction and industrial materials. Common everyday waste materials from both business and consumers such as plastics, glass, food, paper, cardboard continue
+                        to face very poor recycling rates.</p>
                 </article>
             </main>
         </section>
