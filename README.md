@@ -23,6 +23,7 @@ and sizes which will result in vastly different levels of effort to
 organise its transport. The result is set to 1 location closest related to the search
 terms and that location would be compared visually on the map by the user with respect to with the json file data
 to find closest e-waste disposal. 
+- Mobile responsiveness added to the charts for better UI/UX for mobile users.
  
 
 
@@ -58,14 +59,19 @@ And added to recommend to entire closest mrt or shopping centre for most accurat
 
 # Credits: 
 
-- content: data.gov.sg
+- chart content: data.gov.sg
 - e-waste icon from https://icons8.com/icons/set/waste
 - media: 
 - acknowledgements: 
-ewaste photo on page-2: Photo by Jonathan Borba on Unsplash
-ewaste content on page-2: National Environment Agency
+
+1) ewaste photo on page-2: Photo by Jonathan Borba on Unsplash
+
+2) ewaste content on page-2: National Environment Agency
 https://www.nea.gov.sg/our-services/waste-management/3r-programmes-and-resources/e-waste-management
 
+3) icon images: https://icons8.com/
+
+4) icon html: https://fontawesome.com/
 
 
 
