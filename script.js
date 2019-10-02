@@ -3,16 +3,6 @@ let map;
 let markers_all = [];
 let buttonCounter = 0;
 
-//popover function for image of ewaste disposal site
-
-$('a[rel=popover]').popover({
-  html: true,
-  trigger: 'click',
-  content: function () {
-    return '<img src="'+$(this).data('images/renew-bin.jpg') + '" />';
-  }
-});
-
 /* global $ */
 /* global mapboxgl */
 /* global axios*/

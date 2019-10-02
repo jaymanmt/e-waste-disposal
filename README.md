@@ -54,6 +54,7 @@ are implemented.
 Therefore, a limit of one search result per search was implemented to avoid confusion. 
 And added to recommend to entire closest mrt or shopping centre for most accurate search results.
 5. Mapboxgl loads correctly but when other 'pages' as part of the single page application have their windows resized, mapboxgl will be affected. A page refresh or manual window size adjust of maps itself fixes the issue. The occurence of a user resizing windows during the use of other pages followed by going back to the maps seem unlikely, and thus I chose excessive amounts of time fixing this bug. 
+6. Geolocate functionality of mapboxgl worked on firefox, chrome and safari. However, the browser windows must be NON-private. And when using safari browser, the apple device's settings must have "location services" enabled in order for Geolocate to work.
 
 
 # Deployment:
