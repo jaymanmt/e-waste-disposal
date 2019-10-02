@@ -46,11 +46,38 @@
     </header>
     <main>
         <section id="page-one" class="pages">
-            <nav id="search-tool">
-                <input type="text" id="destination" placeholder="enter malls or mrts only"/>
-                <button id="search">go</button>
-                <aside id="current-location"><i class="fas fa-location-arrow"></i> for current location, leave search field empty</aside>
-            </nav>
+            <main id="search-tab-panel"style="display:flex; justify-content: space-between;">
+                <nav id="search-tool">
+                    <input type="text" id="destination" placeholder="enter malls or mrts only" />
+                    <button id="search">go</button>
+                    <aside id="current-location"><i class="fas fa-location-arrow"></i> for current location, click top right icon on the map</aside>
+                </nav>
+                <!-- Button to trigger modal -->
+                <button type="button" class="eg-btn" data-toggle="modal" data-target="#ewastebin">
+                <img id="ewaste-legend" src="images/e-waste-marker.png"></img>
+                </button>
+
+                <!-- ewaste Modal -->
+                <div class="modal fade" id="ewastebin" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Example of an e-waste disposal unit</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+                            </div>
+                            <div class="modal-body">
+                                <img src="images/renew-bin.jpg"></img>
+                            </div>
+                            <div class="modal-footer">
+                                photo by <a href="https://www.starhub.com/about-us/corporate-sustainability/recycling-nations-electronic-waste.html">StarHub</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--<a class="col-2"href="#" rel=popover>- e-waste disposal site</a>-->
+            </main>
             <div id="map">
             </div>
         </section>
@@ -76,14 +103,14 @@
             </article>
             <aside>
                 <p id="credit">
-                   This information is to the credit of NEA.GOV.SG
+                    This information is to the credit of NEA.GOV.SG
                 </p>
             </aside>
         </section>
         <section style="background-color:#eaeaea" id="page-three" class="pages">
             <h2>Total waste generated in Singapore:</h2>
             <h2>2000-2015</h2>
-            <div id = "add-legends">
+            <div id="add-legends">
                 <article id="total-waste-chart"></article>
             </div>
             <div>
@@ -107,22 +134,26 @@
                 <article style="padding:10px;" class="row-sml col-md-4">
                     <h3>About 60% of all waste in Singapore is recycled.</h3>
                     <h4 style="margin-top:30px;">But is our recycling rates truly that good? Unfortunately not...</h4>
-                    <p style="margin-top:30px;">While our recycling rates appear to be doing well, it is heavily skewed by construction and industrial materials. Businesses and consumers common waste materials such as plastics, glass, food, paper, cardboard continue to face very poor recycling rates.</p>
+                    <p style="margin-top:30px;">While our recycling rates appear to be doing well, it is heavily skewed by construction and industrial materials. Businesses and consumers common waste materials such as plastics, glass, food, paper, cardboard continue to face very
+                        poor recycling rates.</p>
                     <p style="margin-top:30px;">Note that only <span style="font-size:1.5em">7%</span> of all plastics and <span style="font-size:1.5em">19%</span> of all glass are being recycled.</p>
                 </article>
             </main>
-            <footer style="padding:10px;" class = "row">
+            <footer style="padding:10px;" class="row">
                 <p>
-                    More recent NEA statistics from the year 2018 show similar or worsening results with a drop to 6% recycling rate for plastics and 17% for glass. Check it out <a target="_blank" style="color:#ffc145;"href="https://www-nea-gov-sg-admin.cwp.sg/docs/default-source/our-services/waste-management/waste-stats---2003---2017e44f4011546a42c2b736db5193758791.pdf">here</a>.
+                    More recent NEA statistics from the year 2018 show similar or worsening results with a drop to 6% recycling rate for plastics and 17% for glass. Check it out <a target="_blank" style="color:#ffc145;" href="https://www-nea-gov-sg-admin.cwp.sg/docs/default-source/our-services/waste-management/waste-stats---2003---2017e44f4011546a42c2b736db5193758791.pdf">here</a>.
                 </p>
                 <p>
-                    While the concept of recycling is encouraged by government bodies and is believed by most that they are doing their part to be environmentally-friendly, it is clear that it is <b>NOT</b> sustainable at all. We cannot continue living in a bubble of ignorance and living guilt-free from our environmental impacts. 
+                    While the concept of recycling is encouraged by government bodies and is believed by most that they are doing their part to be environmentally-friendly, it is clear that it is <b>NOT</b> sustainable at all. We cannot continue living
+                    in a bubble of ignorance and living guilt-free from our environmental impacts.
                 </p>
                 <p>
-                    With our recycling practices of consumables and their packagings not being effective, we need to <b>REMOVE</b> the "Recycle" from the three famous R's as soon as possible. By focusing on only <span style="font-size:1.5em">reducing and re-using</span>, we can drastically help reduce waste as well as encourage businesses and manufacturers to come up with different ways to tackle this issue. We need to make a statement. 
+                    With our recycling practices of consumables and their packagings not being effective, we need to <b>REMOVE</b> the "Recycle" from the three famous R's as soon as possible. By focusing on only <span style="font-size:1.5em">reducing and re-using</span>,
+                    we can drastically help reduce waste as well as encourage businesses and manufacturers to come up with different ways to tackle this issue. We need to make a statement.
                 </p>
-                <p> If you feel inspired by the importance of reducing waste and being aware of our carbon footprint, check out my blog <a target="_blank" style="color:#ffc145" href="https://jaymanmt.github.io/ascioflife/">here</a> where I will talk more about our role in climate change.</p>
-                
+                <p> If you feel inspired by the importance of reducing waste and being aware of our carbon footprint, check out my blog <a target="_blank" style="color:#ffc145" href="https://jaymanmt.github.io/ascioflife/">here</a> where I will talk more
+                    about our role in climate change.</p>
+
             </footer>
         </section>
     </main>
@@ -136,4 +167,5 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
     <script type="text/javascript" src="script.js"></script>
 </body>
+
 </html>

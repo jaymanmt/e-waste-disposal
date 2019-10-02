@@ -18,7 +18,7 @@
     background-image: url(images/icon-pulldown.png) !important;
 }
 
-/* gives map structure*/
+/*search tab elements*/
 #search{
     height: 32px;
     padding: 0;
@@ -26,6 +26,20 @@
 #search-tool{
     display: flex;
 }
+#ewaste-legend{
+    height: 28px;
+}
+.eg-btn{
+    height: 32px;
+}
+
+/* remove current location instructions to reduce clutter for mobile users*/
+@media only screen and (max-width:600px){
+    #current-location{
+        display:none;
+    }
+}
+/* map attributes*/
 #current-location{
     font-size: 0.5em;
     margin-top: 20px;
@@ -35,6 +49,18 @@
     width: 100%;
     height: 700px;
 }
+
+/*search button animation*/
+
+@keyframes button-animate{
+    from{
+        background-color: #156cea;
+    }
+    to{
+        background-color: inherit;
+    }
+}
+
 /* customise e-waste location marker and search marker*/
 .e-marker{
     background-image: url(images/e-waste-marker.png);
@@ -92,13 +118,3 @@
 }
 
 
-/*test*/
-
-@keyframes button-animate{
-    from{
-        background-color: #156cea;
-    }
-    to{
-        background-color: inherit;
-    }
-}
