@@ -213,7 +213,6 @@ function totalWaste(){
                 .group(waste_recycled)
                 .x(d3.scale.ordinal())
                 .xUnits(dc.units.ordinal)
-                .xAxisLabel("year")
                 .yAxisLabel("million tonnes")
                 .ordinalColors(["#2274a5"])
                 .useViewBoxResizing(true);
