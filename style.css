@@ -41,11 +41,15 @@
     font-size: 15px !important;
     padding: 0;
     height: 27px;
+    margin: 0;
 }
-/* remove current location instructions to reduce clutter for mobile users*/
-@media only screen and (max-width:620px){
-    #current-location{
-        display:none;
+/* shorten search tabs for mobile users*/
+@media only screen and (max-width:600px){
+    #destination{
+        width: 80px;
+    }
+    #mrt-select{
+        width: 202px;
     }
 }
 /* map attributes*/
@@ -105,6 +109,7 @@
     background-image: url(images/ewaste-pic.jpg);
     background-size: cover;
     background-attachment: fixed;
+    background-position: center;
 }
 #credit{
     text-align: right;

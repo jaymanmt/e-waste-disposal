@@ -102,12 +102,13 @@ const CLIENT_SECRET = 'B0V0ZCE2GGK5JSQZSAB1GUPRJNC15501FEFZT23TOYYALTDS';
 const master_data = [];
 
 function button1Animate() {
-    return $("#search").html(`<div id="#search" style="height: 30px; padding: 0; animation-name:button-animate; animation-duration:0.5s">go</div>`);
+    return $("#search").html(`<div id="search" style="height: 30px; padding: 0; animation-name:button-animate; animation-duration:0.5s">go</div>`);
 }
 
 function button2Animate() {
-    return $("#search-mrt").html(`<div id="#search" style="height: 30px; padding: 0; animation-name:button-animate; animation-duration:0.5s">go</div>`);
+    return $("#search-mrt").html(`<div id="search" style="height: 30px; padding: 0; animation-name:button-animate; animation-duration:0.5s">go</div>`);
 }
+
 //click on 'go' button, will give closest related location on mapbox
 function loadLocationClick() {
     $("#search").click(function() {

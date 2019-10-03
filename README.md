@@ -21,7 +21,8 @@ You can find the link to my initial wireframe [here.](https://github.com/jaymanm
 2) <u>Maps:</u>
 
 ***used mapboxgl and foursquare*
-- Search Box with zoom functionality &rarr; allow users to key in any mall or train station, followed by a zoom close enough to let them look for the closest walkable e-waste disposal unit. This will let them better plan their journey for the day.
+- Search Box with zoom functionality &rarr; allow users to key in any shopping mall, followed by a zoom close enough to let them look for the closest walkable e-waste disposal unit. This will let them better plan their journey for the day.
+- Search Box for Train Stations &rarr; allow users to more easily search for train stations which is the primary form of transport for most Singapore residents. 
 - Button to display imagery of a typical ewaste disposal unit &rarr; allow users to identify what an ewaste disposal unit looks like so that can locate it quickly onsite.
 - Geolocate &rarr; allow users to find their current location on the map
 - Popups &rarr; displays information about the selected location to improve ease of access. 
@@ -50,6 +51,7 @@ You can find the link to my initial wireframe [here.](https://github.com/jaymanm
 - d3, dc, crossfilter
 - foursquare &rarr; provides basic search library for high frequency destinations such as malls and train stations
 - data.gov.sg &rarr; provided the geojson file to retrieve data of ewaste locations
+- data.world &rarr; provided the csv file to retrive location and names of train stations in singapore
 
 <hr>
 
@@ -98,6 +100,7 @@ Chart data can be found below:
 
  - Text in "The Truth" section about Recycling rates over 2017 and 2018 remain largely unchanged is by [National Environment Agency](https://www-nea-gov-sg-admin.cwp.sg/docs/default-source/our-services/waste-management/waste-stats---2003---2017e44f4011546a42c2b736db5193758791.pdf)
  - All text in "e-waste?" section by [National Environment Agency](https://www.nea.gov.sg/our-services/waste-management/3r-programmes-and-resources/e-waste-management)
+ - Locations and Names of Singapore Train Stations by [data.world](https://data.world/)
 
 ##### Media:
 - map marker icons from [icons8.com](https://icons8.com/icons/set/waste)
