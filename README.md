@@ -33,6 +33,7 @@ You can find the link to my initial wireframe [here.](https://github.com/jaymanm
 - DC Row Chart &rarr; reveals recycling rates for each material. Hovering over individual portions of the charts reveals the values of that particular segment.
 
 ##### Features left to implement:
+- fix bug on mobile device, main table not showing.
 - add click functionality to allow mobile users to view the values of individual bars and rows of the charts.
 - changing cursor 'on mouse enter' on maps
 - add animation for markers.

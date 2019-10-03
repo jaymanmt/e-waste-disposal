@@ -8,6 +8,13 @@ let buttonCounter = 0;
 /* global axios*/
 /* global dc */
 
+//function: display value in popover ON CLICK for mobile users
+// function clickValue(){
+//     $("rect.bar").click(function(){
+//         detect on click dc.
+//     })
+// }
+
 //map launch function that includes e-waste locations across singapore
 function setupMap() {
     mapboxgl.accessToken = "pk.eyJ1IjoiamF5bWFubXQiLCJhIjoiY2sweXFzaHBwMDI5YTNubGc1c255aHp1cCJ9.hdMY8-5YXAPS3wasvO1kbg";
@@ -178,7 +185,7 @@ function totalWaste(){
             let waste_incinerated = year_dim.group().reduceSum(dc.pluck("total_waste_incinerated"));
             let waste_landfilled = year_dim.group().reduceSum(dc.pluck("total_waste_landfilled"));
             
-            let stackChart = dc.barChart("#total-waste-chart");
+            let stackChart = dc.barChart("#total-waste");
             stackChart
                 .width(800)
                 .height(400)
@@ -191,9 +198,10 @@ function totalWaste(){
                 .xUnits(dc.units.ordinal)
                 .yAxisLabel("million tonnes")
                 .ordinalColors(['#44af69','#fcab10','#2274a5'])
-                .useViewBoxResizing(true)
                 .legend(dc.legend().x(720).y(0).itemHeight(15).gap(5))
-                .margins().right = 100;
+                .useViewBoxResizing(true)
+                .margins().right = 100
+                
             
             dc.barChart("#total-waste-incinerated")
                 .width(800)
