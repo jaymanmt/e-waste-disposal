@@ -1,19 +1,15 @@
 /* global variables */
 let map;
 let markers_all = [];
+let mrt_markers = [];
 let buttonCounter = 0;
 
 /* global $ */
 /* global mapboxgl */
 /* global axios*/
 /* global dc */
-
-//function: display value in popover ON CLICK for mobile users
-// function clickValue(){
-//     $("rect.bar").click(function(){
-//         detect on click dc.
-//     })
-// }
+/* global d3 */
+/* global queue */
 
 //map launch function that includes e-waste locations across singapore
 function setupMap() {
@@ -24,96 +20,138 @@ function setupMap() {
         center: [103.8198, 1.3521],
         style: 'mapbox://styles/mapbox/streets-v11',
         zoom: 11
-        
+
     });
     map.addControl(new mapboxgl.GeolocateControl({
-    positionOptions: {
-        enableHighAccuracy: true
-    },
-    trackUserLocation: true
+        positionOptions: {
+            enableHighAccuracy: true
+        },
+        trackUserLocation: true
     }));
-    
+
     axios.get("data/e-waste-recycling-geojson.json")
-            .then(function(response) {
-                let ewasteLoc = response.data.features;
-                for (let each of ewasteLoc){
-                    let each_loc = each.geometry.coordinates;
-                    let epopup = new mapboxgl.Popup({
+        .then(function(response) {
+            let ewasteLoc = response.data.features;
+            for (let each of ewasteLoc) {
+                let each_loc = each.geometry.coordinates;
+                let epopup = new mapboxgl.Popup({
                     offset: 20
-                    })
-                    let excessInfoStr = each.properties.Description;
-                    let cutStr = excessInfoStr.substring(0,excessInfoStr.length-281);
-                    epopup.setHTML(`${cutStr}`);
-                    let el = document.createElement("div");
-                    el.className = "e-marker";
-                    let eMark = new mapboxgl.Marker(el)
+                })
+                let excessInfoStr = each.properties.Description;
+                let cutStr = excessInfoStr.substring(0, excessInfoStr.length - 281);
+                epopup.setHTML(`${cutStr}`);
+                let el = document.createElement("div");
+                el.className = "e-marker";
+                let eMark = new mapboxgl.Marker(el)
                     .setLngLat([each_loc[0], each_loc[1]])
                     .addTo(map)
                     .setPopup(epopup);
-                    
-                     $(el).click(function(){
-                        map.flyTo({
-                            center: [each_loc[0], each_loc[1]],
-                            speed: 0.5
-                        })
+
+                $(el).click(function() {
+                    map.flyTo({
+                        center: [each_loc[0], each_loc[1]],
+                        speed: 0.5
                     })
-                }
-            })
+                })
+            }
+        })
 }
+
+//mrt location
+function setupMrt(){
+    queue()
+        .defer(d3.csv, "data/mrtsg.csv")
+        .await(function(error, mrtData) {
+            for (let mrt of mrtData) {
+                $("#mrt-select").append(`<option>${mrt.STN_NAME}</option>`);
+                $("#search-mrt").click(function() {
+                    button2Animate()
+                    let mrtTerms = $("#mrt-select").val();
+                    if (mrtTerms == mrt.STN_NAME){
+                        for (let markers of mrt_markers) {
+                            markers.remove()
+                        }
+                        let popup = new mapboxgl.Popup({
+                            offset: 20
+                        })
+                        popup.setHTML(`<div style="text-align:center; border-radius:5px"><h5>${mrt.STN_NAME}</h5><p>${mrt.COLOR} Line</p><div>`)
+                        let el3 = document.createElement("div");
+                        el3.className = "mrt-marker";
+                        let mrts = new mapboxgl.Marker(el3)
+                            .setLngLat([mrt.Longitude, mrt.Latitude])
+                            .addTo(map)
+                            .setPopup(popup);
+                        mrt_markers.push(mrts);
+                        map.flyTo({
+                            center: [mrt.Longitude, mrt.Latitude],
+                            zoom: 13,
+                            speed: 0.5,
+                            curve: 1
+                        })
+                    }
+                })
+            }
+        })
+
+}
+
 
 //foursquare constants for apikeys
 const CLIENT_ID = 'DTMGUITHBOR02GGOE5HWBENBOPQM4BCMTJWDHVSZGZ1E3XAS';
 const CLIENT_SECRET = 'B0V0ZCE2GGK5JSQZSAB1GUPRJNC15501FEFZT23TOYYALTDS';
 const master_data = [];
 
-function buttonAnimate(){
-    return $("#search").html(`<div id="#search" style="height: 26px; padding: 0; animation-name:button-animate; animation-duration:0.5s">go</div>`);
+function button1Animate() {
+    return $("#search").html(`<div id="#search" style="height: 30px; padding: 0; animation-name:button-animate; animation-duration:0.5s">go</div>`);
 }
 
+function button2Animate() {
+    return $("#search-mrt").html(`<div id="#search" style="height: 30px; padding: 0; animation-name:button-animate; animation-duration:0.5s">go</div>`);
+}
 //click on 'go' button, will give closest related location on mapbox
 function loadLocationClick() {
     $("#search").click(function() {
-        buttonAnimate();
+        button1Animate();
         let searchTerms = $("#destination").val();
         let base_url = "https://api.foursquare.com/v2";
         axios.get(base_url + '/venues/explore', {
-            params: {
-                "client_id": CLIENT_ID,
-                "client_secret": CLIENT_SECRET,
-                "v": "20190929",
-                "limit": 1,
-                "ll": '1.2933, 103.7831',
-                "query": searchTerms
-            }
-        })
-        .then(function(response) {
-            let results = response.data.response.groups[0].items
-            for (let markers of markers_all){
-                markers.remove()
-            }
-            for (let each_place of results){
-                let name = each_place.venue.name;
-                let address = each_place.venue.location.address;
-                let popup = new mapboxgl.Popup({
-                    offset: 20
-                })
-                popup.setHTML(`<div style="text-align:center; border-radius:5px"><h5>${name}</h5><p>Address:${address}</p><div>`)
-                let el2 = document.createElement("div");
+                params: {
+                    "client_id": CLIENT_ID,
+                    "client_secret": CLIENT_SECRET,
+                    "v": "20190929",
+                    "limit": 1,
+                    "ll": '1.2933, 103.7831',
+                    "query": searchTerms
+                }
+            })
+            .then(function(response) {
+                let results = response.data.response.groups[0].items
+                for (let markers of markers_all) {
+                    markers.remove()
+                }
+                for (let each_place of results) {
+                    let name = each_place.venue.name;
+                    let address = each_place.venue.location.address;
+                    let popup = new mapboxgl.Popup({
+                        offset: 20
+                    })
+                    popup.setHTML(`<div style="text-align:center; border-radius:5px"><h5>${name}</h5><p>Address:${address}</p><div>`)
+                    let el2 = document.createElement("div");
                     el2.className = "e-marker2";
-                let m = new mapboxgl.Marker(el2)
-                    .setLngLat([each_place.venue.location.lng, each_place.venue.location.lat])
-                    .addTo(map)
-                    .setPopup(popup);
+                    let m = new mapboxgl.Marker(el2)
+                        .setLngLat([each_place.venue.location.lng, each_place.venue.location.lat])
+                        .addTo(map)
+                        .setPopup(popup);
                     markers_all.push(m);
-                map.flyTo({
-                            center: [each_place.venue.location.lng, each_place.venue.location.lat],
-                            zoom: 13,
-                            speed: 0.5,
-                            curve: 1
-                        })
-            }
-        })
-        
+                    map.flyTo({
+                        center: [each_place.venue.location.lng, each_place.venue.location.lat],
+                        zoom: 13,
+                        speed: 0.5,
+                        curve: 1
+                    })
+                }
+            })
+
     })
 }
 //charts
@@ -127,7 +165,7 @@ let resource_id_landfill = "81292d12-57a5-4e76-a65b-effacc6806b7";
 let resource_id_truth = "4d83d0be-55ba-46de-8430-2ff708fede5c";
 
 //3 x axios functions to be called in axios callback.
-function totalRecycleApi(){
+function totalRecycleApi() {
     return axios.get(base_url_waste, {
         params: {
             resource_id: resource_id_recycled,
@@ -136,7 +174,7 @@ function totalRecycleApi(){
     })
 }
 
-function totalIncinerateApi(){
+function totalIncinerateApi() {
     return axios.get(base_url_waste, {
         params: {
             resource_id: resource_id_incinerate,
@@ -145,7 +183,7 @@ function totalIncinerateApi(){
     })
 }
 
-function totalLandfillApi(){
+function totalLandfillApi() {
     return axios.get(base_url_waste, {
         params: {
             resource_id: resource_id_landfill,
@@ -155,54 +193,54 @@ function totalLandfillApi(){
 }
 
 //chart - axios callback - 3 x functions for responses from 3 APIs
-function totalWaste(){
+function totalWaste() {
     axios.all([totalRecycleApi(), totalIncinerateApi(), totalLandfillApi()])
-        .then(axios.spread(function(recy,inci,land){
+        .then(axios.spread(function(recy, inci, land) {
             let recy_data = recy.data.result.records;
             let inci_data = inci.data.result.records;
             let land_data = land.data.result.records;
-            for (let r of recy_data){
+            for (let r of recy_data) {
                 master_data.push(r);
             }
             let count = 0;
             let count2 = 0
-            for (let i of inci_data){
-                if (count < master_data.length){
+            for (let i of inci_data) {
+                if (count < master_data.length) {
                     master_data[count].total_waste_incinerated = i.total_waste_incinerated;
                     count++;
                 }
             }
-            for (let l of land_data){
-                if (count2 < master_data.length){
-                    master_data[count2].total_waste_landfilled= l.total_waste_landfilled;
+            for (let l of land_data) {
+                if (count2 < master_data.length) {
+                    master_data[count2].total_waste_landfilled = l.total_waste_landfilled;
                     count2++;
                 }
             }
             let cf_waste_data = crossfilter(master_data);
-            
+
             let year_dim = cf_waste_data.dimension(dc.pluck("year"));
             let waste_recycled = year_dim.group().reduceSum(dc.pluck("total_waste_recycled"));
             let waste_incinerated = year_dim.group().reduceSum(dc.pluck("total_waste_incinerated"));
             let waste_landfilled = year_dim.group().reduceSum(dc.pluck("total_waste_landfilled"));
-            
+
             let stackChart = dc.barChart("#total-waste");
             stackChart
                 .width(800)
                 .height(400)
                 .dimension(year_dim)
-                .group(waste_landfilled,"Landfilled")
+                .group(waste_landfilled, "Landfilled")
                 .stack(waste_incinerated, "Incinerated")
                 .stack(waste_recycled, "Recycled")
                 .transitionDuration(1500)
                 .x(d3.scale.ordinal())
                 .xUnits(dc.units.ordinal)
                 .yAxisLabel("million tonnes")
-                .ordinalColors(['#44af69','#fcab10','#2274a5'])
+                .ordinalColors(['#44af69', '#fcab10', '#2274a5'])
                 .legend(dc.legend().x(720).y(0).itemHeight(15).gap(5))
                 .useViewBoxResizing(true)
                 .margins().right = 100
-                
-            
+
+
             dc.barChart("#total-waste-incinerated")
                 .width(800)
                 .height(400)
@@ -213,7 +251,7 @@ function totalWaste(){
                 .yAxisLabel("million tonnes")
                 .ordinalColors(["#fcab10"])
                 .useViewBoxResizing(true);
-            
+
             dc.barChart("#total-waste-recycled")
                 .width(800)
                 .height(400)
@@ -224,7 +262,7 @@ function totalWaste(){
                 .yAxisLabel("million tonnes")
                 .ordinalColors(["#2274a5"])
                 .useViewBoxResizing(true);
-                
+
             dc.barChart("#total-waste-landfilled")
                 .width(800)
                 .height(400)
@@ -235,25 +273,25 @@ function totalWaste(){
                 .yAxisLabel("million tonnes")
                 .ordinalColors(["#44af69"])
                 .useViewBoxResizing(true);
-                
+
             dc.renderAll();
         }))
 }
 //chart for recycle distribution
-function recycleDistributionApi(){
+function recycleDistributionApi() {
     axios.get(base_url_waste, {
-        params: {
-            resource_id: resource_id_truth,
-            limit: 225
-        }
-    })
-        .then(function(response){
+            params: {
+                resource_id: resource_id_truth,
+                limit: 225
+            }
+        })
+        .then(function(response) {
             let recycle_dist = response.data.result.records;
-            recycle_dist.splice(0,210);
+            recycle_dist.splice(0, 210);
             let cf_recycle_dist_data = crossfilter(recycle_dist);
             let material_dim = cf_recycle_dist_data.dimension(dc.pluck("waste_type"));
             let recycling_rate_group = material_dim.group().reduceSum(dc.pluck("recycling_rate"));
-            
+
             dc.rowChart("#total-waste-recycle-truth")
                 .width(700)
                 .height(500)
@@ -265,8 +303,8 @@ function recycleDistributionApi(){
                 .useViewBoxResizing(true)
 
             dc.renderAll();
-            
-            })
+
+        })
 }
 
 
@@ -274,6 +312,8 @@ function recycleDistributionApi(){
 $(function() {
     //load map
     setupMap();
+    //load mrt
+    setupMrt();
     //setup current location click
     loadLocationClick();
     //load bar charts
