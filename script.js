@@ -326,6 +326,8 @@ $(function() {
     $("#page-one").show();
 
     $(".nav-link").click(function() {
+        //play maps loading animation when during navigations
+        recycleDistributionApi();
         let page = $(this).data("dest");
         $(".pages").hide();
         $('#' + page).show();
