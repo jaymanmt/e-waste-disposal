@@ -19,6 +19,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.js" integrity="sha256-kzv+r6dLqmz7iYuR2OdwUgl4X5RVsoENBzigdF5cxtU=" crossorigin="anonymous"></script>
     <!-- end of dependencies for lodash, d3, crossfilter, dc, and queue -->
 
     <title>e-Waste</title>
@@ -119,25 +120,15 @@
                 </p>
             </aside>
         </section>
-        <section style="background-color:#eaeaea" id="page-three" class="pages">
+        <section id="page-three" class="pages">
             <h2>Total waste generated in Singapore:</h2>
             <h2>2000-2015</h2>
             <div style="width:100%">
                 <article id="total-waste"></article>
             </div>
             <div style="width:100%">
-                <h4><u>Waste recycled</u></h4>
-                <article id="total-waste-recycled"></article>
-            </div>
-            <div style="width:100%">
-                <h4><u>Waste Incinerated</u></h4>
-                <article id="total-waste-incinerated"></article>
-            </div>
-            <div style="width:100%">
-                <h4><u>Waste Landfilled</u></h4>
-                <article id="total-waste-landfilled"></article>
-            </div>
-
+                <h4><u>Total Waste Breakdown</u></h4>
+                <article id="total-waste-dist"></article>
         </section>
         <section id="page-four" class="pages container-fluid">
             <h1 id="chart-header">Year 2015 recycling rates</h1>
