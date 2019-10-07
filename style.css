@@ -122,6 +122,10 @@
     text-align: right;
     font-size: 0.6em;
 }
+#credit-two{
+    text-align: right !important;
+    font-size: 0.6em !important;
+}
 
 
 #page-three{
@@ -138,6 +142,7 @@
     color: white;
 }
 
-#chart-header{
-    padding-top: 10px;
+/*charts label customise*/
+.x-axis-label{
+    font-size: 0.7em;
 }

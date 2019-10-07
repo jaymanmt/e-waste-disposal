@@ -225,7 +225,6 @@ function totalWaste() {
             })
             //consolidate data into a master file
             let master_data = _.concat(recy_data, inci_data, land_data);
-
             let ndx = crossfilter(master_data);
             
             let year_dim = ndx.dimension(dc.pluck("year"));
@@ -250,45 +249,247 @@ function totalWaste() {
                 .radius(200)
                 .dimension(weight_distribution)
                 .group(type_group)
-                .legend(dc.legend()) 
+                .legend(dc.legend().x(-7).y(150))
                 .ordinalColors(['#fcab10', '#2274a5', '#e9164a'])
                 .useViewBoxResizing(true);
-                // .label(function(d) {
-                //     return d.type + ' ' + dc.utils.printSingleValue((d.endAngle - d.startAngle) / (2*Math.PI) * 100) + '%';
-                //     })
             dc.renderAll();
         }))
 }
 //chart for recycle distribution
-function recycleDistributionApi() {
-    axios.get(base_url_waste, {
-            params: {
-                resource_id: resource_id_truth,
-                limit: 225
-            }
-        })
-        .then(function(response) {
-            let recycle_dist = response.data.result.records;
-            recycle_dist.splice(0, 210);
-            let cf_recycle_dist_data = crossfilter(recycle_dist);
-            let material_dim = cf_recycle_dist_data.dimension(dc.pluck("waste_type"));
-            let recycling_rate_group = material_dim.group().reduceSum(dc.pluck("recycling_rate"));
+function recycle_dist_charts(){
+  queue()
 
-            dc.rowChart("#total-waste-recycle-truth")
-                .width(700)
-                .height(500)
-                .x(d3.scale.linear())
-                .elasticX(true)
-                .dimension(material_dim)
-                .group(recycling_rate_group)
-                .ordinalColors(["#ffc145"])
-                .useViewBoxResizing(true)
+.defer(d3.csv, "data/recycling-rate-by-waste-type.csv")
+.await(function(error, data_waste){
+  let ndx2 = crossfilter(data_waste);
 
-            dc.renderAll();
+  let parseDate = d3.time.format("%Y").parse;
+  data_waste.forEach(function(d){
+    d.year = parseDate(d.year);
+  })
 
-        })
+  let date_dim = ndx2.dimension(dc.pluck("year"))
+
+  let minDate = date_dim.bottom(1)[0].year;
+  let maxDate = date_dim.top(1)[0].year;
+
+  let cDebris = date_dim.group().reduceSum(function(d){
+    if (d.waste_type === "Construction Debris"){
+      return +d.recycling_rate;
+    }else{
+      return 0;
+    }
+  })
+  let uSlag = date_dim.group().reduceSum(function(d){
+    if (d.waste_type === "Used Slag"){
+      return +d.recycling_rate;
+    }else{
+      return 0;
+    }
+  })
+  let fMetal = date_dim.group().reduceSum(function(d){
+    if (d.waste_type === "Ferrous Metal"){
+      return +d.recycling_rate;
+    }else{
+      return 0;
+    }
+  })
+  let sTyres = date_dim.group().reduceSum(function(d){
+    if (d.waste_type === "Scrap Tyres"){
+      return +d.recycling_rate;
+    }else{
+      return 0;
+    }
+  })
+  let nFMetal = date_dim.group().reduceSum(function(d){
+    if (d.waste_type === "Non-Ferrous Metal"){
+      return +d.recycling_rate;
+    }else{
+      return 0;
+    }
+  })
+  let wood = date_dim.group().reduceSum(function(d){
+    if (d.waste_type === "Wood"){
+      return +d.recycling_rate;
+    }else{
+      return 0;
+    }
+  })
+  let paperCard = date_dim.group().reduceSum(function(d){
+    if (d.waste_type === "Paper/Cardboard"){
+      return +d.recycling_rate;
+    }else{
+      return 0;
+    }
+  })
+  let hortiW = date_dim.group().reduceSum(function(d){
+    if (d.waste_type === "Horticultural Waste"){
+      return +d.recycling_rate;
+    }else{
+      return 0;
+    }
+  })
+  let plastics = date_dim.group().reduceSum(function(d){
+    if (d.waste_type === "Plastics"){
+      return +d.recycling_rate;
+    }else{
+      return 0;
+    }
+  })
+  let glass = date_dim.group().reduceSum(function(d){
+    if (d.waste_type === "Glass"){
+      return +d.recycling_rate;
+    }else{
+      return 0;
+    }
+  })
+  let food = date_dim.group().reduceSum(function(d){
+    if (d.waste_type === "Food"){
+      return +d.recycling_rate;
+    }else{
+      return 0;
+    }
+  })
+  let textiles = date_dim.group().reduceSum(function(d){
+    if (d.waste_type === "Textiles"){
+      return +d.recycling_rate;
+    }else{
+      return 0;
+    }
+  })
+  let ashSludge = date_dim.group().reduceSum(function(d){
+    if (d.waste_type === "Ash and Sludge"){
+      return +d.recycling_rate;
+    }else{
+      return 0;
+    }
+  })
+  let others = date_dim.group().reduceSum(function(d){
+    if (d.waste_type === "Others"){
+      return +d.recycling_rate;
+    }else{
+      return 0;
+    }
+  })
+  //recyling's composition type chart - trend over over a timeline of 15years 
+  let compChart = dc.compositeChart("#composite-chart");
+
+  compChart
+    .width(1200)
+    .height(500)
+    .dimension(date_dim)
+    .x(d3.time.scale().domain([minDate, maxDate]))
+    .yAxisLabel("recycling rates(%)")
+    .legend(dc.legend().x(50).y(20).itemHeight(13).gap(5))
+    .renderHorizontalGridLines(true)
+    .compose([
+      dc.lineChart(compChart)
+        .colors("#477890")
+        .group(cDebris, "Construction Debris"),
+      dc.lineChart(compChart)
+        .colors("#57849a")
+        .group(uSlag, "Used Slag"),
+      dc.lineChart(compChart)
+        .colors("#6890a4")
+        .group(ashSludge, "Ash and Sludge"),
+      dc.lineChart(compChart)
+        .colors("#799cae")
+        .group(fMetal, "Ferrous Metal"),
+      dc.lineChart(compChart)
+        .colors("#89a9b8")
+        .group(sTyres, "Scrap Tyres"),
+      dc.lineChart(compChart)
+        .colors("#9ab5c2")
+        .group(nFMetal, "Non-Ferrous Metal"),
+      dc.lineChart(compChart)
+        .colors("#abc1cc")
+        .group(wood, "Wood"),
+      dc.lineChart(compChart)
+        .colors("#bccdd6")
+        .group(hortiW, "Horticultural Waste"),
+      dc.lineChart(compChart)
+        .colors("#bb0a21")
+        .group(paperCard, "Paper/Cardboard"),
+      dc.lineChart(compChart)
+        .colors("#f45b69")
+        .group(plastics, "Plastics"),
+      dc.lineChart(compChart)
+        .colors("#ff8811")
+        .group(glass, "Glass"),
+      dc.lineChart(compChart)
+        .colors("#91f5ad")
+        .group(food, "Food"),
+      dc.lineChart(compChart)
+        .colors("#564138")
+        .group(textiles, "Textiles"),
+      dc.lineChart(compChart)
+        .colors("#3423a6")
+        .group(others, "Others")
+    ])
+    .brushOn(false)
+    .useViewBoxResizing(true);
+  //row chart for total waste generated in 15years, in increasing order
+  let types_dim = ndx2.dimension(dc.pluck("waste_type"))
+  //custom-reduce to get average rcycling rates per year
+  let r_AvgRates = types_dim.group().reduce(
+    //add a fact
+    function(p,v){
+      p.count++;
+      p.total += parseFloat(v.recycling_rate);
+      p.average = p.total/p.count;
+      return p;
+    },
+    //remove a fact
+    function(){
+      p.count--;
+      if (p.count == 0){
+        p.total = 0;
+        p.average = 0;
+      }else{
+        p.total-= parseFloat(v.recycling_rate);
+        p.average = p.total/p.count
+      }
+      return p;
+    },
+    //initialise
+    function(){
+      return {count: 0, total: 0, average: 0};
+    }
+  );
+  let distrChart = dc.rowChart("#distr-chart")
+    .width(600)
+    .height(300)
+    .dimension(types_dim)
+    .group(r_AvgRates)
+    .x(d3.scale.linear())
+    .valueAccessor(function (d) {
+        return d.value.average;
+      })
+    .elasticX(true)
+    .ordinalColors(["#477890", "#799cae","#57849a","#9ab5c2","#89a9b8","#abc1cc","#bb0a21","#bccdd6","#ff8811","#f45b69","#91f5ad","#564138","#3423a6","#6890a4"])
+    .useViewBoxResizing(true)
+    .ordering(function(d) { return -d.value.average });
+
+  dc.renderAll();
+  //add x-axis labels for both charts
+  function xAxisLabel(chart, xtext)
+{
+    chart.svg()
+                .append("text")
+                .attr("class", "x-axis-label")
+                .attr("text-anchor", "middle")
+                .attr("x", chart.width()/2)
+                .attr("y", chart.height()-3.5)
+                .text(xtext);
+}
+  xAxisLabel(distrChart, "million tonnes");
+  xAxisLabel(compChart, "year");
+  })
 }
 
+//add axis labels link:
+//https://stackoverflow.com/questions/21114336/how-to-add-axis-labels-for-row-chart-using-dc-js-or-d3-js
+//add special mentions to code institute on strong tutorials on how to do dc.js charts. 
 
 //DOM READY FUNCTION
 $(function() {
@@ -300,17 +501,18 @@ $(function() {
     loadLocationClick();
     //load bar charts
     totalWaste();
-    //load row chart
-    recycleDistributionApi()
+    //load line charts
+    recycle_dist_charts()
     //set up Single Page Application
     $(".pages").hide();
     $("#page-one").show();
 
     $(".nav-link").click(function() {
-        //play maps loading animation when during navigations
-        recycleDistributionApi();
-        let page = $(this).data("dest");
-        $(".pages").hide();
-        $('#' + page).show();
+      totalWaste();
+      recycle_dist_charts();
+      //play maps loading animation when during navigations
+      let page = $(this).data("dest");
+      $(".pages").hide();
+      $('#' + page).show();
     })
 })

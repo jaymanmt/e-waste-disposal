@@ -32,12 +32,13 @@ You can find the link to my initial wireframe [here.](https://github.com/jaymanm
 ***used dc.js, d3.js, crossfilter and axios*
 - DC Stacked Bar Charts &rarr; give users a quick insight into Singapore waste management practices including recycling. 
 - DC Row Chart &rarr; reveals recycling rates for each material. Hovering over individual portions of the charts reveals the values of that particular segment.
+- DC Multi-line Chart &rarr; shows recycling rates (%) over a period of 16 years to reveal Singapore's progress in dealing each material type. 
 
 ##### Features left to implement:
 - add click functionality to allow mobile users to view the values of individual bars and rows of the charts.
 - changing cursor to pointer on ewaste locations on the map
 - add animation for markers.
-
+- add enter key functionality to the "go" buttons for better UI/UX experience on desktop. 
 <hr>
 
 #### Technologies used:
@@ -103,6 +104,7 @@ Chart data can be found below:
 
  - Text in "The Truth" section about Recycling rates over 2017 and 2018 remain largely unchanged is by [National Environment Agency](https://www-nea-gov-sg-admin.cwp.sg/docs/default-source/our-services/waste-management/waste-stats---2003---2017e44f4011546a42c2b736db5193758791.pdf)
  - All text in "e-waste?" section by [National Environment Agency](https://www.nea.gov.sg/our-services/waste-management/3r-programmes-and-resources/e-waste-management)
+ - Information about Singapore's incineration waste management is by [Ministry of the Environment and Water Resources](https://www.mewr.gov.sg/topic/incineration)
  - Locations and Names of Singapore Train Stations by [data.world](https://data.world/)
 
 ##### Media:
