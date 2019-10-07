@@ -23,16 +23,16 @@ You can find the link to my initial wireframe [here.](https://github.com/jaymanm
 ***used mapboxgl and foursquare*
 - Search Box with zoom functionality &rarr; allow users to key in any shopping mall, followed by a zoom close enough to let them look for the closest walkable e-waste disposal unit. This will let them better plan their journey for the day.
 - Search Dropdown Box for Train Stations &rarr; allow users to more easily search for train stations which is the primary form of transport for most Singapore residents. Dropdown menu gives desktop users a speedier search by having an in-built type search feature. 
-- Button to display imagery of a typical ewaste disposal unit &rarr; allow users to identify what an ewaste disposal unit looks like so they can locate it quickly when onsite. It also informs users to turn on location services should they wish to activate the Geolocate functionality of the map.
+- Button to display imagery of a typical ewaste disposal unit &rarr; assist users to identify what an ewaste disposal unit looks like so they can locate it quickly when onsite. It also informs users to turn on location services should they wish to activate the Geolocate functionality of the map.
 - Geolocate on mapboxgl &rarr; allow users to find their current location on the map
-- Popups &rarr; displays information about the selected location to improve ease of access. 
+- Map marker popups &rarr; displays information about the selected location to improve ease of access. 
 
 3) <u>Charts:</u>
 
 ***used dc.js, d3.js, crossfilter and axios*
-- DC Stacked Bar Charts &rarr; give users a quick insight into Singapore waste management practices including recycling. 
-- DC Row Chart &rarr; reveals recycling rates for each material. Hovering over individual portions of the charts reveals the values of that particular segment.
-- DC Multi-line Chart &rarr; shows recycling rates (%) over a period of 16 years to reveal Singapore's progress in dealing each material type. 
+- Bar Chart interactive with a pie chart &rarr; give users a quick insight into Singapore total waste per year anda brief overview of how it is being managed. 
+- DC Multi-line Chart &rarr; shows recycling rates (%) over a period of 16 years to reveal Singapore's progress in dealing each material type. Hovering over individual portions of the charts reveals the values of that particular segment.
+- Row Chart interactive with multi line chart &rarr; portrays the average waste per material over 16years. This chart can be used with the line chart to help highlight on each recycling rates for each material. 
 
 ##### Features left to implement:
 - add click functionality to allow mobile users to view the values of individual bars and rows of the charts.
@@ -58,14 +58,16 @@ You can find the link to my initial wireframe [here.](https://github.com/jaymanm
 
 #### Testing:
 
-<u>Desktop:</u> 
+**Only manual testing conducted for this project.
+
+<u>Testing on Desktop:</u> 
 - Google Chrome, Firefox, Safari and Microsoft Edge browsers had no issues loading and navigating through the webpage including maps except a minor glitch. When the browser window is resized on a page other than the map-page, the map does not display correctly when navigated back to it. A manual window size adjust of the map page itself or a page refresh fixes the issue. A fix for this bug couldn't be found. Taking into consideration the rare occurences of a user resizing windows during the use of other pages followed by going back to the maps, I chose not to consume excessive amounts of time fixing this bug and postpone it to later date. 
-- Geolocate functionality of mapboxgl worked on firefox, chrome and safari. It is noticed that the browser settings must be set to NON-private and have location services enabled. And when using safari browser, it is the apple device's settings that must have "location services" enabled in order for Geolocate to work.
+- Geolocate functionality of mapboxgl worked on firefox, chrome and safari. It is noticed that the browser settings must be set to NON-private and have location services enabled. And when using safari browser, the apple device's settings must have "location services" enabled in order for Geolocate to work.
 - Having more than one search result for the mall's search box was found to provide irrelevant data where the destination results were often not relevant to search terms and also not situated in the same area. Therefore, a limit of one search result per search was implemented to avoid user confusion. Search boxes were adjusted to recommend for only train stations or shopping centres to push for the most accurate search results from foursquare.
 - A pre-defined html table is given within the geojson file from data.gov.sg. The size of the table contained uneccessary information which also consumed a lot of the space on the map. String splicing was used to reduce the size of the the table as much as possible without removing crucial data such as address details etc. Popup html table remains overly clunky to what is desired. 
-- Hero image for e-waste segment appeared blurred and zoomed in on iOs mobile devices. A media query with background-attachment property of scroll was added as a media query. 
+- Hero image for e-waste segment appeared blurred and zoomed in on iOs mobile devices. A media query with background-attachment property of scroll was added.
 
-<u>Browser inspector testing for Mobile Devices were used and tested devices ranging from iPhones andd iPads to Samsung Galaxy:</u>
+<u>Browser inspector for Mobile Devices were used and tested virtual devices ranging from iPhones andd iPads to Samsung Galaxy:</u>
 
 Google chrome inspector:
 - Elements were appropriately sized well and website functionality unchanged. 
@@ -74,7 +76,7 @@ Google chrome inspector:
 Firefox inspector: 
 - Elements were appropriately sized well and website functionality unchanged except that the maps could not be navigated by dragging the cursor.
 
-Mobile Devices including iPhone 7 and Samsung Galaxy S9:
+Testing on Mobile Devices including iPhone 7 and Samsung Galaxy S9:
 - Elements were appropriately sized well and website functionality unchanged. 
 - Map was able to be navigated around by dragging the cursor. 
 
@@ -90,9 +92,11 @@ The link to the webpage can be found [here.](https://jaymanmt.github.io/e-waste-
 
 <hr>
 
+#### Credits:
+
 ##### Content:
 
-Chart data can be found below:
+**Charts' data can be also found within the credits below:
 
 - Total waste recycled by [data.gov.sg](https://data.gov.sg/dataset/solid-waste-management-total-waste-recycled)
 
@@ -114,3 +118,5 @@ Chart data can be found below:
 
 - current location arrow icon from [fontawesome.com](https://fontawesome.com/)
 
+##### Acknowledgements:
+- Learning Resource by Code Institute on "custom reduce for charts" for manually calculating and expressing the average waste/year on the row chart was extremely helpful.
