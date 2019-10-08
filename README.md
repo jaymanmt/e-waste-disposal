@@ -112,7 +112,11 @@ The link to the webpage can be found [here.](https://jaymanmt.github.io/e-waste-
  - Locations and Names of Singapore Train Stations by [data.world](https://data.world/)
 
 ##### Media:
-- map marker icons from [icons8.com](https://icons8.com/icons/set/waste)
+- ewaste marker icon from [icons8.com](https://icons8.com/icons/set/waste)
+
+- red marker icon from [icons8.com](https://icons8.com/icons/set/mall)
+
+- mall marker icon from [icons8.com](https://icons8.com/icons/set/marker)
 
 - ewaste hero image on "e-waste?" section: Photo by Jonathan Borba on Unsplash
 

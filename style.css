@@ -60,11 +60,20 @@
     height: 620px;
 }
 
-/*search button animation*/
+/*search button animations*/
 
-@keyframes button-animate{
+@keyframes button-animate1{
     from{
         background-color: #156cea;
+    }
+    to{
+        background-color: inherit;
+    }
+}
+
+@keyframes button-animate2{
+    from{
+        background-color: red;
     }
     to{
         background-color: inherit;
@@ -79,7 +88,7 @@
     height: 20px;
 }
 .e-marker2{
-    background-image: url(images/place-marker.png);
+    background-image: url(images/shopping-cart.png);
     background-size: cover;
     width: 50px;
     height: 50px;
