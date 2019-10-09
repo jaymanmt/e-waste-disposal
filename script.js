@@ -192,7 +192,7 @@ function totalLandfillApi() {
     })
 }
 
-//chart - axios callback - 3 x functions for responses from 3 APIs
+//bar and pie chart - axios callback - 3 x functions for responses from 3 APIs
 function totalWaste() {
     axios.all([totalRecycleApi(), totalIncinerateApi(), totalLandfillApi()])
         .then(axios.spread(function(recy, inci, land) {
@@ -242,7 +242,8 @@ function totalWaste() {
                 .xUnits(dc.units.ordinal)
                 .yAxisLabel("million tonnes")
                 .ordinalColors(["#44af69"])
-                .useViewBoxResizing(true);
+                .useViewBoxResizing(true)
+                .xAxisLabel("year");
             
             let pieChart = dc.pieChart("#total-waste-dist")
                 .height(200)
@@ -255,7 +256,7 @@ function totalWaste() {
             dc.renderAll();
         }))
 }
-//chart for recycle distribution
+//line + bar chart for recycle distribution
 function recycle_dist_charts(){
   queue()
 

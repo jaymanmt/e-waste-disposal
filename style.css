@@ -161,3 +161,6 @@
 .dc-legend-item text{
     fill: white;
 }
+.x-axis-label{
+    font-size: 12px;
+}
