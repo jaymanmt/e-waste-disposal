@@ -505,9 +505,6 @@ $(function() {
     $("#page-one").show();
 
     $(".nav-link").click(function() {
-      totalWaste();
-      recycle_dist_charts();
-      //play maps loading animation when during navigations
       let page = $(this).data("dest");
       $(".pages").hide();
       $('#' + page).show();
